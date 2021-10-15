@@ -1,0 +1,73 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. GERAMOV.
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       INPUT-OUTPUT SECTION.
+      ***
+      *** DEFINE OS ARQUIVOS DE ENTRADA E SAIDA
+      ***
+       FILE-CONTROL.
+           SELECT ARQCAD ASSIGN TO "MOVIMEN.DAT"
+             ORGANIZATION IS SEQUENTIAL
+             ACCESS MODE IS SEQUENTIAL
+             FILE STATUS IS ST-ALU.
+       DATA DIVISION.
+       FILE SECTION.
+       FD  ARQCAD.
+       01  REG-FORNECEDOR.
+            05  CDFORN PIC 9(03).
+            05  NMFORM    PIC  X(30).
+            05  NMCIDADE    PIC  X(30).
+            05  SGMOVIM  PIC  X(01).
+       WORKING-STORAGE SECTION.
+       77  ST-ALU       PIC X(02).
+       PROCEDURE DIVISION.
+       INICIO.
+           PERFORM ABRE-ARQ.
+           PERFORM PROCESSO.
+           PERFORM FINALIZA.
+           STOP RUN.
+       ABRE-ARQ.
+           OPEN OUTPUT ARQCAD.
+           IF ST-ALU NOT EQUAL '00'
+              DISPLAY 'ERRO DE ABERTURA - CAD ALUNO' ST-ALU
+              STOP RUN.
+       PROCESSO.
+           MOVE 001 TO CDFORN.
+           MOVE 'ISM' TO NMFORM.
+           MOVE 'SAO PAULO' TO NMCIDADE.
+           MOVE 'E' TO SGMOVIM.
+           WRITE REG-FORNECEDOR.
+
+           MOVE 006 TO CDFORN.
+           MOVE 'M.A INFORMATICA' TO NMFORM.
+           MOVE 'RIO DE JANEIRO' TO NMCIDADE.
+           MOVE 'I' TO SGMOVIM.
+           WRITE REG-FORNECEDOR.
+
+           MOVE 013 TO CDFORN.
+           MOVE 'DECADRON' TO NMFORM.
+           MOVE 'SAO PAULO' TO NMCIDADE.
+           MOVE 'A' TO SGMOVIM.
+           WRITE REG-FORNECEDOR.
+
+           MOVE 026 TO CDFORN.
+           MOVE 'SES SYSTEMS' TO NMFORM.
+           MOVE 'SANTOS' TO NMCIDADE.
+           MOVE 'E' TO SGMOVIM.
+           WRITE REG-FORNECEDOR.
+
+           MOVE 048 TO CDFORN.
+           MOVE 'ENTERDATA' TO NMFORM.
+           MOVE 'RIO DE JANEIRO' TO NMCIDADE.
+           MOVE 'A' TO SGMOVIM.
+           WRITE REG-FORNECEDOR.
+
+           MOVE 132 TO CDFORN.
+           MOVE 'SISGRAPH' TO NMFORM.
+           MOVE 'RIO DE JANEIRO' TO NMCIDADE.
+           MOVE 'I' TO SGMOVIM.
+           WRITE REG-FORNECEDOR.
+
+       FINALIZA.
+           CLOSE ARQCAD.
